@@ -1,5 +1,9 @@
 import requests
 
+RACE_DISTRIBUTION_URL = "https://data.cdc.gov/api/views/pj7m-y5uh/rows.csv"
+
+WEEKLY_UPDATES_URL = "https://data.cdc.gov/api/views/hc4f-j6nb/rows.csv"
+
 
 def download_raw_data(url):
     cookies = {
@@ -53,60 +57,10 @@ def dump_csv(csv_path, csv):
     with open(csv_path, "wb") as f:
         f.write(csv)
 
-# import requests
-#
-# cookies = {
-#     's_fid': '582F41E5B5EE3F91-06D2B37F363E3DB1',
-#     '_ga': 'GA1.2.1330760792.1584017985',
-#     '_socrata_session_id': 'BAh7CEkiD3Nlc3Npb25faWQGOgZFRkkiJTJmODQ1NzVkOTliMTkwYThlMGMyMjIzZDZlNzI3MjIyBjsARkkiCXVzZXIGOwBGMEkiEF9jc3JmX3Rva2VuBjsARkkiMUNUc2JQQmc2ZGRyVW1YN29lYU4zMnJWZHNHbk9zeHZyaitWZER3T1crOXM9BjsARg%3D%3D--0482c883277b0b57ac3ac777eedfbf4ca9195a0f',
-#     '_gid': 'GA1.2.681595992.1587979645',
-#     's_vnum': '1588280400166%26vn%3D4',
-#     's_invisit': 'true',
-#     's_lv_s': 'Less%20than%207%20days',
-#     's_visit': '1',
-#     's_cc': 'true',
-#     '_gat_GSA_ENOR0': '1',
-#     '_4c_': 'hVNNb6MwEP0rFYeeChjb2CZStUoCaVK1oQ1ZrbYXFMAp3lBAQKDZKv997UCalSrt5pI3w7w3H5750LqU59rIshl1mMUohITdaDt%2BqLXRh1aJRP212kjjDoVOHCMdsi3RccKZzhyGdUQRsDcwQbETaTfau9JyLOogx4E2sI43WlwOGh%2FavsqkVNo0ZT0yza7rjDiJjdeiNfM4rc28rWuzravKjItWJGHH%2BS47mFJ27PoTLwy8IFj4y3DhShWbwRm2PHtiex6aOZYOiAsniM4QQR5yJ5akxUXCZajlGNQg0m5%2BK4sBCcuqSPZxEzaHUoV0PLqqk538kPBWxDzsRNKk8gO0Cbh4Uy5e00aJYHxyl5UyDGhLoxN5UnQXJsDs4r0wAcDSvS7KteCKLQ0%2F8B6CAY7daY9m2V6CnxItp%2FN5sH7q3Yv817469Nh7WvVgWry97XPRHO724tSy8qVVkYu4N5bTxcr9lPNeTiM8ZV4%2FrIfUd1kRbbI532Sn%2BtXY14G7Ogt48x4F5SYX9RDx%2BPhjNchORNWkLt%2FyuKkHzsIPBpL%2FND%2FX6k99fyAvggHdF9HAeRG7TY%2Biqujq04RUJ2%2F86vRuhYp7EPn%2BXRqVzFZV5ynWolGtDys1OOQq9z6V%2BXG9CifeeOov%2F1pDFW9Z0IAFNXLemJEpt1A61Vpa5n2gQwMYwKxthm2Aqc0AAMT6Nn6e3FrXW5Hc%2FncTr8fP3q3ax1Jdknr9rIg3mSpWHp8c%2FDj8fnoQCyFACaAONORFYiDviNnacTgrxgChBNmUYLnKjTwlRjBQPxnRivOlwphCChnTHZ4AHdsbojuAYJ1sKYIJiaItwudLVVePgJREbJC02FmxzAZF6xLsYEBku%2FQcjD%2Fzl%2B0Qjb9UC79W279tKKf8D96XLo%2FHPw%3D%3D',
-#     '_gat_socrataSiteChrome': '1',
-#     'gpv_c54': 'https%3A%2F%2Fdata.cdc.gov%2FNCHS%2FProvisional-Death-Counts-for-Coronavirus-Disease-C%2Fpj7m-y5uh',
-#     's_ppvl': 'Provisional%2520Death%2520Counts%2520for%2520Coronavirus%2520Disease%2520%2528COVID-19%2529%2520%257C%2520Data%2520%257C%2520Centers%2520for%2520Disease%2520Control%2520and%2520Prevention%2C55%2C72%2C6369%2C2560%2C720%2C2560%2C1440%2C1%2CL',
-#     'gpv_v45': 'Provisional%20Death%20Counts%20for%20Coronavirus%20Disease%20%28COVID-19%29%3A%20Weekly%20State-Specific%20Data%20Updates%20%7C%20Data%20%7C%20Centers%20for%20Disease%20Control%20and%20Prevention',
-#     'socrata-csrf-token': 'xYLAMq9bBL8TOgMLF5e74p1FKw73R4bN+HA4Z5Ye27bMudsOt2FxZcejfeNuNMw4KBibZzn0nSZ3lWVolYggbQ==',
-#     's_ptc': '0.01%5E%5E0.00%5E%5E0.00%5E%5E0.00%5E%5E0.96%5E%5E0.90%5E%5E3.82%5E%5E0.01%5E%5E4.83',
-#     's_ppv': 'Provisional%2520Death%2520Counts%2520for%2520Coronavirus%2520Disease%2520%2528COVID-19%2529%253A%2520Weekly%2520State-Specific%2520Data%2520Updates%2520%257C%2520Data%2520%257C%2520Centers%2520for%2520Disease%2520Control%2520and%2520Prevention%2C36%2C36%2C1255%2C2560%2C720%2C2560%2C1440%2C1%2CL',
-#     's_lv': '1587981890328',
-#     's_sq': '%5B%5BB%5D%5D',
-#     's_tps': '16',
-#     's_pvs': '24',
-# }
-#
-# headers = {
-#     'Connection': 'keep-alive',
-#     'Pragma': 'no-cache',
-#     'Cache-Control': 'no-cache',
-#     'Upgrade-Insecure-Requests': '1',
-#     'User-Agent': 'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36',
-#     'Sec-Fetch-Dest': 'document',
-#     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-#     'Sec-Fetch-Site': 'same-origin',
-#     'Sec-Fetch-Mode': 'navigate',
-#     'Sec-Fetch-User': '?1',
-#     'Referer': 'https://data.cdc.gov/NCHS/Provisional-Death-Counts-for-Coronavirus-Disease-C/pj7m-y5uh',
-#     'Accept-Language': 'en-US,en;q=0.9',
-# }
-#
-# params = (
-#     ('accessType', 'DOWNLOAD'),
-# )
-#
-# response = requests.get('https://data.cdc.gov/api/views/pj7m-y5uh/rows.csv', headers=headers, params=params, cookies=cookies)
-
-#NB. Original query string below. It seems impossible to parse and
-#reproduce query strings 100% accurately so the one below is given
-#in case the reproduced version is not "correct".
-# response = requests.get('https://data.cdc.gov/api/views/pj7m-y5uh/rows.csv?accessType=DOWNLOAD', headers=headers, cookies=cookies)
 
 if __name__ == "__main__":
-    "https://data.cdc.gov/api/views/hc4f-j6nb/rows.csv"
-    csv_race = download_raw_data("https://data.cdc.gov/api/views/pj7m-y5uh/rows.csv")
+    csv_race = download_raw_data(RACE_DISTRIBUTION_URL)
     dump_csv("us_covid_provisional_race_data.csv", csv_race)
+    csv_weekly = download_raw_data(WEEKLY_UPDATES_URL)
+    dump_csv("us_covid_provisional_weekly_data.csv", csv_weekly)
+    print("DONE")
