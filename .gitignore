@@ -1,2 +1,5 @@
 metabase*
 plugins/*
+.idea
+.~lock*
+/venv
