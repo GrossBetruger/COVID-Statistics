@@ -1,3 +1,5 @@
+#!/bin/python
+
 import requests
 
 RACE_DISTRIBUTION_URL = "https://data.cdc.gov/api/views/pj7m-y5uh/rows.csv"
