@@ -1,15 +1,13 @@
 with agg_new_york as (
-    select cast(replace("All COVID-19 Deaths (U07.1)", ',', '') as integer) as 'COVID Deaths',
-           case when
-               Indicator in ('New York', 'New York City')
-               then 'New York State'
-               else Indicator end
-               as Indicator
+    select
+    case when  state like  'New York%' then 'New York' else state end as state,
+    covid_deaths
     from corona_us_deaths
-    where "Group" = 'By state'
 )
-select Indicator State, sum("COVID Deaths") as COVID_Deaths from agg_new_york
-where Indicator != 'Total US'
---where Indicator in ('California', 'New York State', 'New Jersey', 'Michigan', 'Massachusetts')
-group by Indicator
-order by COVID_Deaths desc
+select sum(covid_deaths) covid_deaths_in_state, case when  state like  'New York%' then 'New York' else state end as state
+from agg_new_york
+where state != 'United States'
+group by state
+order by covid_deaths_in_state desc
+;
+
