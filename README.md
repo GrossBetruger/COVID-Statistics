@@ -13,4 +13,7 @@
 ./update_db.sh # will merge all CSV data into an sqlite db (path: corona_us_deaths.db) and send you to the sqlite interactive shell
 ```
 
-### example queries can be found under *queries/*
+### example queries can be found under:
+```bash
+queries/
+```
