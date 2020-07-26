@@ -4,7 +4,7 @@ with agg_new_york as (
     covid_deaths
     from corona_us_deaths
 )
-select sum(covid_deaths) covid_deaths_in_state, case when  state like  'New York%' then 'New York' else state end as state
+select sum(covid_deaths) covid_deaths_in_state, state
 from agg_new_york
 where state != 'United States'
 group by state
