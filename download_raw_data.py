@@ -16,13 +16,13 @@ RACE_DATA_URL = "https://data.cdc.gov/resource/pj7m-y5uh.csv"
 
 
 if __name__ == "__main__":
-    with open(WEEKLY_DATA_CSV, "w") as f:
+    with open(WEEKLY_DATA_CSV, "wb") as f:
         f.write(requests.get(WEEKLY_DATA).content)
 
-    with open(RACE_DATA_CSV, "w") as f:
+    with open(RACE_DATA_CSV, "wb") as f:
         f.write(requests.get(RACE_DATA_URL).content)
 
-    with open(AGE_SEX_DATA_CSV, "w") as f:
+    with open(AGE_SEX_DATA_CSV, "wb") as f:
         f.write(requests.get(AGE_AND_SEX_DATA_URL).content)
 
     print("DONE")
